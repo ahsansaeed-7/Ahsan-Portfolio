@@ -2,11 +2,11 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
 const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
+  process.env.https://jbuzxojfglakkrimwopk.supabase.co,
+  process.env.sb_publishable_2ljWriOwTo90AoApVfRbqQ_f0pEF_gI
 );
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.re_HKJiqxb9_FgVqL6Xp8mpn9ZzstScu2YR1);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -19,7 +19,6 @@ export default async function handler(req, res) {
   try {
     const { name, email, message } = req.body;
 
-    // Validation
     if (!name || !email || !message) {
       return res.status(400).json({
         success: false,
@@ -27,30 +26,24 @@ export default async function handler(req, res) {
       });
     }
 
-    // Save data in Supabase
+    // Save in Supabase
     const { error: dbError } = await supabase
       .from('contacts')
-      .insert([
-        {
-          name,
-          email,
-          message
-        }
-      ]);
+      .insert([{ name, email, message }]);
 
     if (dbError) {
       console.error('Supabase Error:', dbError);
-
       return res.status(500).json({
         success: false,
         message: 'Failed to save message in database'
       });
     }
 
-    // Send email to you
-    const { error: mailError } = await resend.emails.send({
+    // Send email
+    const emailResponse = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: 'ahsanay048@gmail.com',
+      to: ['ahsanay048@gmail.com'],
+      reply_to: email,
       subject: `New Portfolio Contact from ${name}`,
       html: `
         <h2>New Portfolio Contact</h2>
@@ -61,9 +54,10 @@ export default async function handler(req, res) {
       `
     });
 
-    if (mailError) {
-      console.error('Resend Error:', mailError);
+    console.log("EMAIL RESPONSE:", emailResponse);
 
+    if (emailResponse.error) {
+      console.error('Resend Error:', emailResponse.error);
       return res.status(500).json({
         success: false,
         message: 'Saved in database but email failed'
@@ -77,7 +71,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Server Error:', error);
-
     return res.status(500).json({
       success: false,
       message: 'Something went wrong'
