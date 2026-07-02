@@ -529,29 +529,33 @@ Skills
             </div>
 
         </div>
+<form class="contact-form" id="contactForm" data-aos="fade-left">
 
-        <form class="contact-form" data-aos="fade-left">
+    <input
+        type="text"
+        id="name"
+        placeholder="Your Name"
+        required>
 
-            <input
-                type="text"
-                placeholder="Your Name"
-                required>
+    <input
+        type="email"
+        id="email"
+        placeholder="Your Email"
+        required>
 
-            <input
-                type="email"
-                placeholder="Your Email"
-                required>
+    <textarea
+        id="message"
+        rows="7"
+        placeholder="Your Message"
+        required></textarea>
 
-            <textarea
-                rows="7"
-                placeholder="Your Message"
-                required></textarea>
+    <button type="submit" id="submitBtn">
+        Send Message
+    </button>
 
-            <button type="submit">
-                Send Message
-            </button>
+    <p id="formMessage"></p>
 
-        </form>
+</form>
 
     </div>
 
