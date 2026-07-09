@@ -2,11 +2,11 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
 const supabase = createClient(
-  process.env.https://jbuzxojfglakkrimwopk.supabase.co,
-  process.env.sb_publishable_2ljWriOwTo90AoApVfRbqQ_f0pEF_gI
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-const resend = new Resend(process.env.re_HKJiqxb9_FgVqL6Xp8mpn9ZzstScu2YR1);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       `
     });
 
-    console.log("EMAIL RESPONSE:", emailResponse);
+    console.log('EMAIL RESPONSE:', emailResponse);
 
     if (emailResponse.error) {
       console.error('Resend Error:', emailResponse.error);

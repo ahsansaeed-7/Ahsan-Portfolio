@@ -225,3 +225,68 @@ if (contactForm) {
     submitBtn.textContent = "Send Message";
   });
 }
+const skillSlides = document.querySelectorAll(".skill-slide");
+const skillDots = document.querySelectorAll(".skill-dots .dot");
+const nextSkillBtn = document.querySelector(".skill-arrow.next");
+const prevSkillBtn = document.querySelector(".skill-arrow.prev");
+
+let currentSkill = 0;
+
+function showSkillSlide(index) {
+  skillSlides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === index);
+  });
+
+  skillDots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+}
+
+if (nextSkillBtn && prevSkillBtn) {
+  nextSkillBtn.addEventListener("click", () => {
+    currentSkill = (currentSkill + 1) % skillSlides.length;
+    showSkillSlide(currentSkill);
+  });
+
+  prevSkillBtn.addEventListener("click", () => {
+    currentSkill = (currentSkill - 1 + skillSlides.length) % skillSlides.length;
+    showSkillSlide(currentSkill);
+  });
+}
+
+skillDots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    currentSkill = index;
+    showSkillSlide(currentSkill);
+  });
+});
+
+// Auto slide every 4 seconds
+setInterval(() => {
+  currentSkill = (currentSkill + 1) % skillSlides.length;
+  showSkillSlide(currentSkill);
+}, 4000);
+
+showSkillSlide(currentSkill);
+// =========================
+// PROJECT IMAGE SLIDESHOW
+// =========================
+const projectSliders = document.querySelectorAll(".project-image-slider");
+
+projectSliders.forEach((slider) => {
+  const slides = slider.querySelectorAll(".project-slide");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+  }
+
+  showSlide(current);
+
+  setInterval(() => {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }, 3000); // change image every 3 sec
+});
