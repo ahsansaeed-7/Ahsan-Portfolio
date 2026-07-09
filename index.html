@@ -641,32 +641,12 @@
             </div>
 
         </div>
-<form class="contact-form" id="contactForm" data-aos="fade-left">
-
-    <input
-        type="text"
-        id="name"
-        placeholder="Your Name"
-        required>
-
-    <input
-        type="email"
-        id="email"
-        placeholder="Your Email"
-        required>
-
-    <textarea
-        id="message"
-        rows="7"
-        placeholder="Your Message"
-        required></textarea>
-
-    <button type="submit" id="submitBtn">
-        Send Message
-    </button>
-
-    <p id="formMessage"></p>
-
+<form action="https://formspree.io/f/xnjkkeoy" method="POST" class="contact-form">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+   <input type="hidden" name="_subject" value="New Portfolio Message">
+  <button type="submit" class="btn">Send Message</button>
 </form>
 
     </div>
