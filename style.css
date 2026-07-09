@@ -1700,3 +1700,22 @@ grid-template-columns:1fr;
   opacity: 1;
   transform: scale(1);
 }
+/* Make images responsive everywhere */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+  .home-img img,
+  .about-img img,
+  .project-card img,
+  .skill-card img,
+  .hero img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;   /* prevents zoom/cropping */
+  }
+}
