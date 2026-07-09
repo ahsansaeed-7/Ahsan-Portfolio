@@ -1679,9 +1679,13 @@ grid-template-columns:1fr;
 .project-image-slider {
   position: relative;
   width: 100%;
-  height: 270px; /* adjust to your project card image height */
+  height: 270px;
   overflow: hidden;
   border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111827; /* optional background behind image */
 }
 
 .project-image-slider .project-slide {
@@ -1689,17 +1693,17 @@ grid-template-columns:1fr;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-
+  object-fit: contain;   /* changed from cover */
   opacity: 0;
-  transition: opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
-  transform: scale(1.03);
+  transition: opacity 0.9s ease-in-out;
+  transform: none;       /* remove zoom */
 }
 
 .project-image-slider .project-slide.active {
   opacity: 1;
-  transform: scale(1);
+  transform: none;
 }
+
 /* Make images responsive everywhere */
 img {
   max-width: 100%;
@@ -1709,6 +1713,15 @@ img {
 
 /* Mobile fix */
 @media (max-width: 768px) {
+  .project-image-slider {
+    height: 220px; /* smaller height for mobile */
+  }
+
+  .project-image-slider .project-slide {
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
   .home-img img,
   .about-img img,
   .project-card img,
@@ -1716,7 +1729,7 @@ img {
   .hero img {
     width: 100%;
     height: auto;
-    object-fit: contain;   /* prevents zoom/cropping */
+    object-fit: contain;
   }
 }
 .project-card img{
